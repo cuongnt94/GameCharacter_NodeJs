@@ -3,6 +3,9 @@ const http = require('http');
 const url = require('url');
 
 const json = fs.readFileSync(`${__dirname}/data/data.json`, 'utf-8');
+
+
+// parse from String to Object when getting data from the Server
 const heroData = JSON.parse(json);
 
 const server = http.createServer((req, res) => {
@@ -10,7 +13,7 @@ const server = http.createServer((req, res) => {
     const pathName = url.parse(req.url, true).pathname;
     const id = url.parse(req.url, true).query.id;
     
-    // PRODUCTS OVERVIEW
+    // OVERVIEW
     if (pathName === '/products' || pathName === '/') {
         res.writeHead(200, { 'Content-type': 'text/html'});
         
@@ -31,7 +34,7 @@ const server = http.createServer((req, res) => {
     else if (pathName === '/laptop' && id < heroData.length) {
         res.writeHead(200, { 'Content-type': 'text/html'});
         
-        fs.readFile(`${__dirname}/templates/template-laptop.html`, 'utf-8', (err, data) => {
+        fs.readFile(`${__dirname}/templates/template-hero.html`, 'utf-8', (err, data) => {
             const laptop = heroData[id];
             const output = replaceTemplate(data, laptop);
             res.end(output);
