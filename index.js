@@ -3,7 +3,7 @@ const http = require('http');
 const url = require('url');
 
 const json = fs.readFileSync(`${__dirname}/data/data.json`, 'utf-8');
-const laptopData = JSON.parse(json);
+const heroData = JSON.parse(json);
 
 const server = http.createServer((req, res) => {
     
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
             
             fs.readFile(`${__dirname}/templates/template-card.html`, 'utf-8', (err, data) => {
             
-                const cardsOutput = laptopData.map(el => replaceTemplate(data, el)).join('');
+                const cardsOutput = heroData.map(el => replaceTemplate(data, el)).join('');
                 overviewOutput = overviewOutput.replace('{%CARDS%}', cardsOutput); 
                 
                 res.end(overviewOutput);
@@ -27,12 +27,12 @@ const server = http.createServer((req, res) => {
         });
     }
     
-    // LAPTOP DETAIL
-    else if (pathName === '/laptop' && id < laptopData.length) {
+    // Hero DETAIL
+    else if (pathName === '/laptop' && id < heroData.length) {
         res.writeHead(200, { 'Content-type': 'text/html'});
         
         fs.readFile(`${__dirname}/templates/template-laptop.html`, 'utf-8', (err, data) => {
-            const laptop = laptopData[id];
+            const laptop = heroData[id];
             const output = replaceTemplate(data, laptop);
             res.end(output);
         });
@@ -61,11 +61,11 @@ server.listen(1337, '127.0.0.1', () => {
 function replaceTemplate(originalHtml, laptop) {
     let output = originalHtml.replace(/{%HERONAME%}/g, laptop.heroName);
     output = output.replace(/{%IMAGE%}/g, laptop.image); 
-    output = output.replace(/{%POPULARITY%}/g, laptop.popularity); // price
-    output = output.replace(/{%INTEL%}/g, laptop.intel); // screen
-    output = output.replace(/{%HP%}/g, laptop.hp); // cpu
-    output = output.replace(/{%AGI%}/g, laptop.agi); // storage
-    output = output.replace(/{%STR%}/g, laptop.str); // ram
+    output = output.replace(/{%POPULARITY%}/g, laptop.popularity); 
+    output = output.replace(/{%INTEL%}/g, laptop.intel); 
+    output = output.replace(/{%HP%}/g, laptop.hp); 
+    output = output.replace(/{%AGI%}/g, laptop.agi); 
+    output = output.replace(/{%STR%}/g, laptop.str); 
     output = output.replace(/{%DESCRIPTION%}/g, laptop.description);
     output = output.replace(/{%ID%}/g, laptop.id);
     output = output.replace(/{%MAIN%}/g, laptop.main);
