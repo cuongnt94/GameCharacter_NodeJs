@@ -25,8 +25,6 @@ const server = http.createServer((req, res) => {
                 res.end(overviewOutput);
             });
         });
-        
-        
     }
     
     // LAPTOP DETAIL
@@ -61,14 +59,15 @@ server.listen(1337, '127.0.0.1', () => {
 });
 
 function replaceTemplate(originalHtml, laptop) {
-    let output = originalHtml.replace(/{%PRODUCTNAME%}/g, laptop.productName);
-    output = output.replace(/{%IMAGE%}/g, laptop.image);
-    output = output.replace(/{%PRICE%}/g, laptop.price);
-    output = output.replace(/{%SCREEN%}/g, laptop.screen);
-    output = output.replace(/{%CPU%}/g, laptop.cpu);
-    output = output.replace(/{%STORAGE%}/g, laptop.storage);
-    output = output.replace(/{%RAM%}/g, laptop.ram);
+    let output = originalHtml.replace(/{%HERONAME%}/g, laptop.heroName);
+    output = output.replace(/{%IMAGE%}/g, laptop.image); 
+    output = output.replace(/{%POPULARITY%}/g, laptop.popularity); // price
+    output = output.replace(/{%INTEL%}/g, laptop.intel); // screen
+    output = output.replace(/{%HP%}/g, laptop.hp); // cpu
+    output = output.replace(/{%AGI%}/g, laptop.agi); // storage
+    output = output.replace(/{%STR%}/g, laptop.str); // ram
     output = output.replace(/{%DESCRIPTION%}/g, laptop.description);
     output = output.replace(/{%ID%}/g, laptop.id);
+    output = output.replace(/{%MAIN%}/g, laptop.main);
     return output;
 }
